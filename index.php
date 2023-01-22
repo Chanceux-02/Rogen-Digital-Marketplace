@@ -1,11 +1,16 @@
 <?php
     require_once 'classes/dbh.class.php';
     include_once 'classes/models/add.mod.php';
+    include_once 'classes/models/filter.mod.php';
     include_once 'classes/models/gallery.mod.php';
 
+    //for gallery items
     $gallery = new Gallery();
     $datas = $gallery->show();
-    // echo $data['title'];
+    
+    //for gallery filter items
+    $filter = new Filter();
+    $fdata = $filter->filter();
 
 ?>
 
@@ -18,6 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gallery</title>
     <link rel="stylesheet" href="css/main.css">
+    
 </head>
 <body>
 
@@ -33,11 +39,14 @@
     </header>
 
     <section class="filter">
-        <form action="includes/filter.inc.php" method="post">
+        <form action="filter.php" method="post">
             <select name="filter" aria-label="Filter Options">
-                <option value="">Select Filter</option>
-                <option value="">Select Filter</option>
-                <option value="">Select Filter</option>
+            <option value="">Select Filter</option>
+            <?php
+                while ($filterdata = $fdata->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<option value=$filterdata[groupName]>$filterdata[groupName]</option>";
+                }
+            ?>
             </select>
             <button type="submit" name="submit">Filter</button>
         </form>
@@ -56,11 +65,12 @@
                     <p><?=$data['description']?></p>
                     <div class="gallery-forms">
                         <form action="edit.php" method="post">
-                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="id" value=<?=$data['id']?>>
                             <button type="submit" name="submit">Edit</button>
                         </form>
                         <form action="includes/delete.inc.php" method="post">
-                            <input type="hidden" name="id" value="">
+                            <input type="hidden" name="imgname" value=<?=$data['imgName']?>>
+                            <input type="hidden" name="id" value=<?=$data['id']?>>
                             <button type="submit" name="submit">Delete</button>
                         </form>
                     </div>
