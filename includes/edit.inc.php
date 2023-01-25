@@ -5,7 +5,22 @@ if (isset($_POST['submit'])) {
     //grabbing data
     $title = $_POST['title'];
     $desc = $_POST['desc'];
+    $price = $_POST['price'];
     $id = $_POST['id'];
+
+    //nag kwa sang mga data sa forms
+    $groupName = $_POST['groupName']; //select
+    $newGName = $_POST['newGroupName']; // input
+
+    $gName = $_POST['groupName'];
+
+    if(!empty($groupName)){
+        $gName = $groupName;
+    }else{
+        $gName = $newGName;
+    }
+
+    $grpName = $gName;
 
     //requiring files
     require_once '../classes/dbh.class.php';
@@ -13,7 +28,7 @@ if (isset($_POST['submit'])) {
     require_once '../classes/controller/edit.con.php';
 
     //running function
-    $edit = new Editcontroller($title,$desc,$id);
+    $edit = new Editcontroller($title,$desc,$price,$grpName,$id);
     $edit->edit();
 
     //going back to homepage

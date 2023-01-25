@@ -10,6 +10,9 @@ body{
     padding: 7% 1% 7% 7%;
     color: white;
     background-color: rgb(41,47,52);
+    text-align: center;
+    /* position: fixed;
+    width: 92%; */
 }
 
 .header-links{
@@ -44,7 +47,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: end;
-    width: 100%;
+    width: 20%;
 }
 .filter select{
     font-size:x-small;
@@ -71,42 +74,107 @@ body{
 .gallery-container{
     display: flex;
     flex-wrap: wrap;
-    width: 90%;
+    justify-content: space-evenly;
+    width: 95%;
     margin: auto;
-    padding: auto;
 }
 .gallery-container a{
     text-align: center;
     margin: 1%;
-    border: 1px solid rgb(114, 110, 110);
+    background-color: rgba(216, 223, 215, 0.9);
+    border: 1px solid rgb(246, 244, 244);
     border-radius: 5px;
-    padding: 20px;
+    padding: 10px 20px 10px 20px;
     text-decoration: none;
     color: black;
+    width: 100px;
+    /* height: 100px; */
+    /* margin-bottom: 90px; */
+}
+.gallery-container a h5{
+    width: 100%;
+    height: 30px;
+    word-wrap: break-word;
+    margin-bottom: 10px;
 }
 .gallery-container a p{
-    margin-top: 2%;
-    width: 250px;
-    word-wrap:break-word;
+    width: 100%;
+    height: 50px;
+    word-wrap: break-word;
+    font-size: small;
+    text-align: center;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+}
+.gallery-container a span{
+    font-size: small;
+    text-align: center;
 }
 .gallery-forms{
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-    margin-top: 2%;
+    margin-top: 10px;
 }
 .gallery-forms button{
-    font-size:small;
+    font-size: x-small;
     border: 1px solid rgb(128, 126, 126);
     border-radius: 5px;
     padding: 6px 20px 6px 20px;
 }
 .gallery-image{
     background-image: url(../images/default.jfif);
-    width: 250px;
-    height: 200px;
+    width: 100px;
+    height: 100px;
     background-size: cover;
+    border-radius: 5px;
 }
+.about{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    margin-bottom: 120vh;
+}
+.about div{
+    width: 80%;
+    margin: auto;
+    margin-top: 15%;
+}
+.about h1{
+    margin-bottom: 10%;
+    margin-top: 5%;
+}
+.aboutlink{
+    display: flex;
+    justify-content: start;
+    text-align: center;
+    padding: 1%;
+    text-decoration: none;
+    color: black;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 50px;
+}
+.footer{
+    padding: 7% 1% 7% 1%;
+    color: white;
+    background-color: rgb(41,47,52);
+    text-align: center;
+    margin-top: 5%;
+    height: 30vh;
+}
+.footer-container{
+    display: flex;
+    flex-direction: column;
+}
+.footer-links{
+    margin-top: 5%;
+}
+.footer-links p{
+    margin-top: 2%;
+}
+
+
 
 @media only screen and (min-width: 650px) {
     .header-container{
@@ -123,17 +191,52 @@ body{
         text-decoration: none;
     }
     
-    .header-links a{
-        display: flex;
-        padding: 3% 10% 3% 10%;
+    .gallery-container a{
+        text-align: center;
+        margin: 1%;
+        padding: 20px;
         text-decoration: none;
-        font-size: x-small;
-        color: white;
-        border: 1px solid white;
+        color: black;
+        width: 250px;
+        height: 30%;
+        margin-bottom: 0px;
+    }
+    .gallery-container a p{
+        margin-top: 2%;
+        width: 80%;
+        word-wrap:break-word;
+        margin: auto;
+    }
+    .gallery-container a h5{
+        font-size: 1rem;
+        margin-top: 5px;
+        height: 50px;
+        word-wrap: break-word;
+        overflow-x: visible;
+    }
+    .gallery-forms{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-top: 2%;
+    }
+    .gallery-forms button{
+        font-size:small;
+        border: 1px solid rgb(128, 126, 126);
         border-radius: 5px;
+        padding: 6px 20px 6px 20px;
+    }
+    .gallery-image{
+        background-image: url(../images/default.jfif);
+        width: 100%;
+        height: 200px;
+        background-size: cover;
     }
     .filter{
     margin-right: 10%;
+    }
+    .filter form {
+        width: 10%;
     }
     .filter select{
         font-size:small;
@@ -143,7 +246,6 @@ body{
         border: 1px solid rgb(128, 126, 126);
         border-radius: 5px;
     }
-    
 }
 
 @media only screen and (min-width: 1549px){

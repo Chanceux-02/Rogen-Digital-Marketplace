@@ -73,7 +73,7 @@
                             <?php
                               echo '<div class="gallery-image" style="background-image: url(images/gallery/'.$row["imgName"].');"></div>';
                             ?>
-                            <h3><?= $row["title"];?></h3>
+                            <h5><?= $row["title"];?></h5>
                             <p><?= $row["description"];?></p>
                             <div class="gallery-forms">
                                 <form action="edit.php" method="post">

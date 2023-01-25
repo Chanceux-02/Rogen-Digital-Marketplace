@@ -12,6 +12,10 @@
     $filter = new Filter();
     $fdata = $filter->filter();
 
+    //for system company name
+    $gallery2 = new Gallery();
+    $datas2 = $gallery2->systemDetails();
+
 ?>
 
 
@@ -29,11 +33,17 @@
 
     <header class="header">
         <div class="header-container">
-            <h1>Some Company Name</h1>
+            <!-- fetching company's name -->
+        <?php
+        while ($data2 = $datas2->fetch(PDO::FETCH_ASSOC)) {
+            ?>
+                 <h1><?= $data2['companyName'] ?></h1>
+       
             <div class="header-links">
                 <a href="about.php">About</a>
-                <a href="contact.php">Contact</a>
+                <a href="#footer">Contact</a>
                 <a href="add.php">Add Item</a>
+                <a href="editContent.php">Edit Details</a>
             </div>
         </div>
     </header>
@@ -50,8 +60,11 @@
             </select>
             <button type="submit" name="submit">Filter</button>
         </form>
+        <form action="editGroups.php" method="post" class="filterform2">
+        <button type="groupButton" name="groupName">Edit Group Names</button>
+        </form>
     </section>
-
+                
     <section class="gallery">
         <div class="gallery-container">
             <?php 
@@ -61,8 +74,9 @@
                     <?php
                         echo '<div class="gallery-image" style="background-image: url(images/gallery/'.$data["imgName"].');"></div>';
                     ?>
-                    <h3><?=$data['title']?></h3>
+                    <h5><?=$data['title']?></h5>
                     <p><?=$data['description']?></p>
+                    <span><?=$data['price']?> Pesos</span>
                     <div class="gallery-forms">
                         <form action="edit.php" method="post">
                             <input type="hidden" name="id" value=<?=$data['id']?>>
@@ -78,6 +92,25 @@
             <?php } ?>
         </div>
     </section>
-    
+
+    <footer id="footer">
+    <section class="footer">
+        <div class="footer-container">
+            <h1>Contact_</h1>
+            <div class="footer-links">
+
+                <!-- fetching company's contact (amuni ang sugpon ya sa babaw)-->
+                        <a href=<?= $data2['fb'] ?> style="text-decoration: none; color: white;"><?= $data2['fb'] ?></a>
+                        <p><?= $data2['number'] ?></p>
+                        <p><?= $data2['address'] ?></p>
+                <?php
+                }
+                ?>
+                <!-- end of while loop -->
+            </div>
+        </div>
+    </section>
+    </footer>
+        
 </body>
 </html>
