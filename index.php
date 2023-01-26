@@ -1,7 +1,6 @@
 <?php
     require_once 'classes/dbh.class.php';
     include_once 'classes/models/add.mod.php';
-    include_once 'classes/models/filter.mod.php';
     include_once 'classes/models/gallery.mod.php';
 
     //for gallery items
@@ -9,7 +8,7 @@
     $datas = $gallery->show();
     
     //for gallery filter items
-    $filter = new Filter();
+    $filter = new Gallery();
     $fdata = $filter->filter();
 
     //for system company name
@@ -17,7 +16,6 @@
     $datas2 = $gallery2->systemDetails();
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,8 +40,12 @@
             <div class="header-links">
                 <a href="about.php">About</a>
                 <a href="#footer">Contact</a>
-                <a href="add.php">Add Item</a>
-                <a href="editContent.php">Edit Details</a>
+                <form action="add.php" method="post">
+                    <button type="submit" name="submit">Add Item</button>
+                </form>
+                <form action="editContent.php" method="post">
+                    <button type="submit" name="submit">Edit Details</button>
+                </form>
             </div>
         </div>
     </header>
@@ -70,13 +72,13 @@
             <?php 
                 while ($data = $datas->fetch(PDO::FETCH_ASSOC)) {
             ?>
-                <a href="http://">
+                <a href="selectedItem.php?id=<?=$data['id']?>">
                     <?php
                         echo '<div class="gallery-image" style="background-image: url(images/gallery/'.$data["imgName"].');"></div>';
                     ?>
                     <h5><?=$data['title']?></h5>
                     <p><?=$data['description']?></p>
-                    <span><?=$data['price']?> Pesos</span>
+                    <h5><?=$data['price']?> Pesos</h5>
                     <div class="gallery-forms">
                         <form action="edit.php" method="post">
                             <input type="hidden" name="id" value=<?=$data['id']?>>

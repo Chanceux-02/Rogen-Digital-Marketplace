@@ -1,23 +1,29 @@
 <?php
-    require_once 'classes/dbh.class.php';
-    include_once 'classes/models/add.mod.php';
-    include_once 'classes/models/filter.mod.php';
-    include_once 'classes/models/gallery.mod.php';
-
-    //for viewing images
-    $gallery = new Gallery();
-    $datas = $gallery->show();
-
-    //for gallery filter items
-    $filter = new Filter();
-    $fdata = $filter->filter();
-
-    //making sure that the id is from the form
+    //making sure that the request is from the form in index page
     if (!isset($_POST['submit'])) {
         $id = "";
+        header("Location: ./index.php?WrongWayToEnter");
+        exit();
     } else {
         $id = $_POST['id'];
+
+        require_once 'classes/dbh.class.php';
+        include_once 'classes/models/add.mod.php';
+        include_once 'classes/models/gallery.mod.php';
+    
+        //for category filter items
+        $filter = new Gallery();
+        $fdata = $filter->filter();
+
+        // para mag fetch sang selected product group name gamit ang id
+        $galleryF = new Gallery();
+        $galleryFil = $galleryF->groupName($id);
+
+        // para mag fetch sang selected Items gamit ang id
+        $gallerySelected = new Gallery();
+        $gallerySel = $gallerySelected->showSelectedItem($id);
     }
+
 
 ?>
 
@@ -40,80 +46,45 @@
                     <label for="select">To edit group name, select or create new product name</label>
                     <div class="group-name">
                         <select name="groupName" aria-label="Group name" id="select">
-                       <option value="">Select group</option>
-                <!-- making some query to fetch selected data from database in groupName row -->
-                        <?php
-                            if (isset($_POST['submit'])) {
-                                if (empty($id)) {
-                                    header("Location: index.php?emptyfilter");
-                                    exit();
-                                }
-                                include_once "includes/dbh.inc.php";
-                                $sql1 = "SELECT groupName FROM gallery WHERE id = '$id';";
-                                $stmt1 = mysqli_stmt_init($conn);
-                                if (!mysqli_stmt_prepare($stmt1, $sql1)) {
-                                    echo "SQL statement failed! Error: selecting from gallery";
-                                } else {
-                                    mysqli_stmt_execute($stmt1);
-                                    $result1 = mysqli_stmt_get_result($stmt1);
-                                }
-                            }
-                            ?>
 
-                <!-- fetching all data data from the group name with a distinct order -->
+                            <!-- making placeholder and value for default option -->
+                            <?php
+                            while ($filterdata22 = $galleryFil->fetch(PDO::FETCH_ASSOC)) {
+                                echo "<option value=$filterdata22[groupName]>$filterdata22[groupName]</option>";
+                            } 
+                            ?>
+                            <!-- fetching all data data from the group name with a distinct order -->
                             <?php
                                 while ($filterdata = $fdata->fetch(PDO::FETCH_ASSOC)) {
                                     echo "<option value=$filterdata[groupName]>$filterdata[groupName]</option>";
                                 }
                             ?>
                         </select>
-                        <?php
-
-                // fetching the selected data for groupName
-                        while ($row1 = mysqli_fetch_assoc($result1)) {
-                            ?>
-                            <input type="text" name="newGroupName" value="<?=$row1['groupName']?>" placeholder="Enter your new product group name" id="newitem">
-                            <?php } ?>
+                            <input type="text" name="newGroupName" placeholder="Enter your new product group name" id="newitem">
                     </div>
 
-                <!-- making some query to show a selected data from gallery -->
+                    <!-- making some query to show a selected data from gallery -->
                     <?php
-                    if (isset($_POST['submit'])) {
-                        if (empty($id)) {
-                            header("Location: index.php?emptyfilter");
-                            exit();
-                        }
-                        include_once "includes/dbh.inc.php";
-                        $sql = "SELECT * FROM gallery WHERE id = '$id';";
-                        $stmt = mysqli_stmt_init($conn);
-                        if (!mysqli_stmt_prepare($stmt, $sql)) {
-                            echo "SQL statement failed! Error: selecting from gallery";
-                        } else {
-                            mysqli_stmt_execute($stmt);
-                            $result = mysqli_stmt_get_result($stmt);
-                        }
-                    }
-                    
-                // fetching the selected data
-                    while ($row = mysqli_fetch_assoc($result)) {
+                    // fetching the selected data
+                    while ($selectedItem = $gallerySel->fetch(PDO::FETCH_ASSOC)) {
                     ?>
                     <section class="gallery">
                         <div class="gallery-container">
                                 <a href="http://">
                                     <?php
-                                        echo '<div class="gallery-image" style="background-image: url(images/gallery/'.$row["imgName"].');"></div>';
+                                        echo '<div class="gallery-image" style="background-image: url(images/gallery/'.$selectedItem["imgName"].');"></div>';
                                     ?>
-                                    <h5><?=$row['title']?></h5>
-                                    <p><?=$row['description']?></p>
+                                    <h5><?=$selectedItem['title']?></h5>
+                                    <p><?=$selectedItem['description']?></p>
                                     <span>20 dollars</span>
 
                                 </a>
                         </div>
                     </section>
                     <input type="hidden" name="id" value=<?=$id?>>
-                    <input type="text" name="title" value="<?=$row['title']?>">
-                    <input type="text" name="desc" value="<?=$row['description']?>">
-                    <input type="text" name="price" value="<?=$row['price']?>">
+                    <input type="text" name="title" value="<?=$selectedItem['title']?>">
+                    <input type="text" name="desc" value="<?=$selectedItem['description']?>">
+                    <input type="text" name="price" value="<?=$selectedItem['price']?>">
                     <button type="submit" name="submit">Edit product</button>
                     <?php } ?>
                 </form>

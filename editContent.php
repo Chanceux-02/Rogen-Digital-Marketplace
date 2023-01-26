@@ -1,11 +1,17 @@
 <?php
-    require_once 'classes/dbh.class.php';
-    include_once 'classes/models/gallery.mod.php';
-
-    //for system company name
-    $gallery2 = new Gallery();
-    $datas2 = $gallery2->systemDetails();
-
+    //making sure that the request is from the form in index page
+    if (!isset($_POST['submit'])) {
+        header("Location: ./index.php?WrongWayToEnter");
+        exit();
+    } else {
+        require_once 'classes/dbh.class.php';
+        include_once 'classes/models/gallery.mod.php';
+    
+        //for system company name
+        $gallery2 = new Gallery();
+        $datas2 = $gallery2->systemDetails();
+    
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">

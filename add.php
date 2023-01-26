@@ -1,10 +1,16 @@
 <?php
-    require_once 'classes/dbh.class.php';
-    include_once 'classes/models/filter.mod.php';
-
-    //for gallery filter items
-    $filter = new Filter();
-    $fdata = $filter->filter();
+    //making sure that the request is from the form in index page
+    if (!isset($_POST['submit'])) {
+        header("Location: ./index.php?WrongWayToEnter");
+        exit();
+    } else {
+        require_once 'classes/dbh.class.php';
+        include_once 'classes/models/gallery.mod.php';
+    
+        //for gallery filter items
+        $filter = new Gallery();
+        $fdata = $filter->filter();
+    }
 
 ?>
 

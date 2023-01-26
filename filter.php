@@ -1,12 +1,25 @@
 <?php
+    //making sure that the request is from the form in index page
+    if (!isset($_POST['submit'])) {
+        $gName = "";
+        header("Location: ./index.php?WrongWayToEnter");
+        exit();
+    } else {
     require_once 'classes/dbh.class.php';
-    include_once 'classes/models/add.mod.php';
     include_once 'classes/models/filter.mod.php';
     include_once 'classes/models/gallery.mod.php';
 
     //for gallery filter items
-    $filter = new Filter();
+    $filter = new Gallery();
     $fdata = $filter->filter();
+    
+    //getting data from the form
+    $gName = $_POST['filter'];
+
+    //query for selected category filter items
+    $filterGroup = new Gallery();
+    $filterG = $filterGroup->showSelectedCategory($gName);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -51,49 +64,31 @@
     <!-- gallery -->
     <section class="gallery">
         <div class="gallery-container">
-            <?php
-                if (isset($_POST['submit'])) {
-                    $gName = $_POST['filter'];
-                    if (empty($gName)) {
-                    header("Location: index.php?emptyfilter");
-                    exit();
-                    }
-                    include_once "includes/dbh.inc.php";
-                    $sql = "SELECT * FROM gallery WHERE groupName = '$gName';";
-                    $stmt = mysqli_stmt_init($conn);
-                    if (!mysqli_stmt_prepare($stmt, $sql)) {
-                        echo "SQL statement failed! Error: selecting from gallery";
-                    }else{
-                        mysqli_stmt_execute($stmt);
-                        $result = mysqli_stmt_get_result($stmt);
-                        
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
-                            <a href="http://">
-                            <?php
-                              echo '<div class="gallery-image" style="background-image: url(images/gallery/'.$row["imgName"].');"></div>';
-                            ?>
-                            <h5><?= $row["title"];?></h5>
-                            <p><?= $row["description"];?></p>
-                            <div class="gallery-forms">
-                                <form action="edit.php" method="post">
-                                    <input type="hidden" name="id" value=<?=$row['id']?>>
-                                    <button type="submit" name="submit">Edit</button>
-                                </form>
-                                <form action="includes/delete.inc.php" method="post">
-                                    <input type="hidden" name="imgname" value=<?=$row['imgName']?>>
-                                    <input type="hidden" name="id" value=<?=$row['id']?>>
-                                    <button type="submit" name="submit">Delete</button>
-                                </form>
-                            </div>
-                        </a>
-
-                        <?php
-
-                        }
-                    }
-                }
+            <?php          
+                while ($groupFilter = $filterG->fetch(PDO::FETCH_ASSOC)) {
             ?>
+                    <a href="http://">
+                        <?php
+                            echo '<div class="gallery-image" style="background-image: url(images/gallery/'.$groupFilter["imgName"].');"></div>';
+                        ?>
+                        <h5><?= $groupFilter["title"];?></h5>
+                        <p><?= $groupFilter["description"];?></p>
+                        <div class="gallery-forms">
+                            <form action="edit.php" method="post">
+                                <input type="hidden" name="id" value=<?=$groupFilter['id']?>>
+                                <button type="submit" name="submit">Edit</button>
+                            </form>
+                            <form action="includes/delete.inc.php" method="post">
+                                <input type="hidden" name="imgname" value=<?=$groupFilter['imgName']?>>
+                                <input type="hidden" name="id" value=<?=$groupFilter['id']?>>
+                                <button type="submit" name="submit">Delete</button>
+                            </form>
+                        </div>
+                    </a>
+
+                <?php  
+                }
+                ?>
         </div>
     </section>
 </body>
