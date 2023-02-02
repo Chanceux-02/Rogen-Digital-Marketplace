@@ -3,8 +3,8 @@
 if (isset($_POST['submit'])) {
 
     //grabbing data
-    $groupName = $_POST['groupName']; //select
-    $newGName = $_POST['newGroupName']; // input
+    $groupName = strip_tags($_POST['groupName']); //select
+    $newGName = strip_tags($_POST['newGroupName']); // input
 
     //requiring files
     require_once '../classes/dbh.class.php';

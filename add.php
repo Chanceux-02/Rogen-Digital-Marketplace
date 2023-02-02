@@ -23,33 +23,48 @@
     <title>Add Item</title>
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/form.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="https://kit.fontawesome.com/06b9f7a3c7.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <section class="form">
-        <div class="form-wrapper">
-        <a href="index.php" class="link">Home</a>
-            <h1>Add new product</h1>
-            <form action="includes/add.inc.php" method="post" enctype="multipart/form-data">
-                <label for="select">Select product group name or Create new product name</label>
-                <div class="group-name">
-                    <select name="groupName" aria-label="Group name" id="select">
-                        <option value="">None</option>
-                        <?php
-                            while ($filterdata = $fdata->fetch(PDO::FETCH_ASSOC)) {
-                                echo "<option value=$filterdata[groupName]>$filterdata[groupName]</option>";
-                            }
-                        ?>
-                    </select>
-                    <p>or</p>
-                    <input type="text" name="newGroupName" placeholder="Enter your new product group name" id="newitem">
-                </div>
-                
-                <input type="file" name="file">
-                <input type="text" name="fileName" placeholder="Enter your product picture file name" id="">
-                <input type="text" name="title" placeholder="Enter your procuct title" id="">
-                <input type="text" name="desc" placeholder="Enter your product description" id="">
-                <button type="submit" name="submit">Add product</button>
-            </form>
+        <div class="form-wrapper bg-light p-3 py-5 rounded">
+            <a href="index.php" class="link btn btn-outline-primary">Home</a>
+            <br>
+            <br>
+                <h1>Add new product</h1>
+                <form action="includes/add.inc.php" method="post" enctype="multipart/form-data">
+                    <label for="select">Select product category name or Create new category name</label>
+                    <div class="group-name">
+                        <select name="groupName" aria-label="Group name" id="select" class="form-select p-1">
+                            <option value="">None</option>
+                            <?php
+                                while ($filterdata = $fdata->fetch(PDO::FETCH_ASSOC)) {
+                                    //making new name for cateogry name or group name
+                                    $newFileName = $filterdata['groupName'];
+
+                                    // converting dash to space
+                                    $newFileName = strtolower(str_replace("-", " ", $newFileName));
+                                    // converting first word small letter to big
+                                    $firstLetter = ucwords($newFileName);
+                                    $newName = $firstLetter;
+
+                                    echo "<option value=$filterdata[groupName]>$newName</option>";
+                                }
+                    ?>
+                        </select>
+                        <p>or</p>
+                        <input type="text" name="newGroupName" placeholder="Enter your new product group name" id="newitem" class="form-control">
+                    </div>
+                    
+                    <input type="file" name="file" required class="form-control">
+                    <input type="text" name="title" placeholder="Enter your procuct title" required class="form-control">
+                    <input type="text" name="desc" placeholder="Enter your product description" required class="form-control">
+                    <input type="number" name="price" placeholder="Enter your product price" required class="form-control">
+                    <br>
+                    <button type="submit" name="submit" class="btn btn-outline-primary">Add product</button>
+                </form>
         </div>
     </section>
     

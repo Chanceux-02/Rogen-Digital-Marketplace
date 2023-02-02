@@ -18,10 +18,11 @@ if (isset($_POST['submit'])) {
         $gName = $newGName;
     }
 
-    $grpName = $gName;
-    $fileName = $_POST['fileName'];
-    $title = $_POST['title'];
-    $desc = $_POST['desc'];
+    $grpName = strip_tags($gName);
+    $fileName ="gallery";
+    $title = strip_tags($_POST['title']); 
+    $desc = strip_tags($_POST['desc']);
+    $price = strip_tags($_POST['price']);
     $file = $_FILES['file'];
 
 
@@ -32,7 +33,7 @@ if (isset($_POST['submit'])) {
     $fileSize = $file['size'];
 
     //nag input sang mga data sa controller
-    $add = new Addcontroller($grpName, $fname, $fileName, $title, $desc, $fileTemapName,  $fileError, $fileSize);
+    $add = new Addcontroller($grpName, $fname, $fileName, $title, $desc, $price, $fileTemapName,  $fileError, $fileSize);
 
     //gin call ang function sang controller para i run ang validations kag mag supply sang data sa model
     $add->newItem();

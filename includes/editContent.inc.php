@@ -3,11 +3,11 @@
 if (isset($_POST['submit'])) {
 
     //grabbing data
-    $name = $_POST['name'];
-    $about = $_POST['about'];
-    $number = $_POST['number'];
-    $fb = $_POST['fb'];
-    $address = $_POST['address'];
+    $name = strip_tags($_POST['name']);
+    $about = strip_tags($_POST['about']);
+    $number = strip_tags($_POST['number']);
+    $fb = strip_tags($_POST['fb']);
+    $address = strip_tags($_POST['address']);
 
     //requiring files
     require_once '../classes/dbh.class.php';

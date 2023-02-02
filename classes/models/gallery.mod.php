@@ -71,5 +71,24 @@ class Gallery extends Dbh{
         // }
     }
 
+    //for displaying newsfeed
+    public function newsfeed(){
+        $con = $this->connect();
+        $stmt = "SELECT * FROM newsfeed ORDER BY created_at DESC";
+        $stmt2 = $con->prepare($stmt);
+        $stmt2->execute();
+        // $result = $stmt2->fetch(PDO::FETCH_ASSOC);
+        return $stmt2;
+    }
+    //for recovery value
+    public function recoveryVal(){
+        $con = $this->connect();
+        $stmt = "SELECT * FROM recovery;";
+        $stmt2 = $con->prepare($stmt);
+        $stmt2->execute();
+        // $result = $stmt2->fetch(PDO::FETCH_ASSOC);
+        return $stmt2;
+    }
+
 
 }

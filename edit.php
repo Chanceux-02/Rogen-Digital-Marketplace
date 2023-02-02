@@ -70,21 +70,19 @@
                     ?>
                     <section class="gallery">
                         <div class="gallery-container">
-                                <a href="http://">
+                                <a href="http://" style="background-color: transparent;">
                                     <?php
                                         echo '<div class="gallery-image" style="background-image: url(images/gallery/'.$selectedItem["imgName"].');"></div>';
                                     ?>
                                     <h5><?=$selectedItem['title']?></h5>
                                     <p><?=$selectedItem['description']?></p>
-                                    <span>20 dollars</span>
-
                                 </a>
                         </div>
                     </section>
                     <input type="hidden" name="id" value=<?=$id?>>
-                    <input type="text" name="title" value="<?=$selectedItem['title']?>">
-                    <input type="text" name="desc" value="<?=$selectedItem['description']?>">
-                    <input type="text" name="price" value="<?=$selectedItem['price']?>">
+                    <input type="text" name="title" value="<?=$selectedItem['title']?>" required>
+                    <input type="text" name="desc" value="<?=$selectedItem['description']?>" required>
+                    <input type="text" name="price" value="<?=$selectedItem['price']?>" required>
                     <button type="submit" name="submit">Edit product</button>
                     <?php } ?>
                 </form>

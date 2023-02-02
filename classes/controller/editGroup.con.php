@@ -9,6 +9,7 @@ class Groupcontroller extends Edit{
     public function __construct($newGName,$grpName){
         $this->grpName = $grpName;
         $this->newGName = $newGName;
+        $this->newGName = $this->newCategoryName();
     }
 
     public function edit(){
@@ -32,5 +33,17 @@ class Groupcontroller extends Edit{
 
         return $result;
     }
+    //making new name for cateogry name or group name
+    public function newCategoryName(){
+        $newFileName = $this->newGName;
 
+        if (empty($newFileName)) {
+            $newFileName = "gallery";
+        }else{
+            $newFileName = strtolower(str_replace(" ", "-", $newFileName));
+        }
+        $newName = $newFileName;
+    
+        return $newName;
+    }
 }

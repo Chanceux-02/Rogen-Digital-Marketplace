@@ -1,12 +1,18 @@
 *{
+    box-sizing:border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Poppins', sans-serif;
     line-height: 1.5;
-
+}
+.form textarea{
+    max-height: 300px;
+    max-width: 80vw;
 }
 
 .form-wrapper{
     width: 80%;
     margin: auto;
-    margin-top: 20%;
     margin-bottom: 20%;
 }
 .form-wrapper form{
@@ -75,20 +81,10 @@
     background-size: contain;
     border-radius: 5px;
 }
-
-.link{
-    padding: 2%;
-    text-decoration: none;
-    color: black;
-    border: 1px solid black;
-    border-radius: 5px;
-}
 .about{
     margin-top: 2%;
     text-align: start;
     overflow-wrap: break-word;
-    height: 100px;
-    padding: 2%;
 }
 @media only screen and (min-width: 500px) {
     .gallery-image{
@@ -97,13 +93,13 @@
         background-size: contain;
         border-radius: 5px;
     }
+    
 }
 @media only screen and (min-width: 900px) {
     .form-wrapper{
         width: 50%;
         margin: auto;
         padding: auto;
-        margin-top: 10%;
         margin-bottom: 20%;
     }
     .form-wrapper form{

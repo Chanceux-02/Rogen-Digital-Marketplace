@@ -28,6 +28,10 @@ class EditContentcontroller extends Edit{
             header("Location: ../index.php?emptyinput");
             exit();
         }
+        if ($this->validNumber() == false) {
+            header("Location: ../index.php?invalidPHoneNumber");
+            exit();
+        }
         $this->editSystem($this->name,$this->about,$this->number,$this->fb,$this->address);
     }
 
@@ -36,6 +40,16 @@ class EditContentcontroller extends Edit{
     public function checkEmpty2(){
         $result = false;
         if (empty($this->name) || empty($this->about) || empty($this->number) || empty($this->fb) || empty($this->address)) {
+            $result = false;
+        }else{
+            $result = true;
+        }
+
+        return $result;
+    }
+    public function validNumber(){
+        $result = false;
+        if (!preg_match('/^\d{11}$/', $this->number)) {
             $result = false;
         }else{
             $result = true;

@@ -9,10 +9,10 @@ if (isset($_POST['submit'])) {
     $id = $_POST['id'];
 
     //nag kwa sang mga data sa forms
-    $groupName = $_POST['groupName']; //select
-    $newGName = $_POST['newGroupName']; // input
+    $groupName = strip_tags($_POST['groupName']); //select
+    $newGName = strip_tags($_POST['newGroupName']); // input
 
-    $gName = $_POST['groupName'];
+    $gName = strip_tags($_POST['groupName']);
 
     if(!empty($groupName)){
         $gName = $groupName;
