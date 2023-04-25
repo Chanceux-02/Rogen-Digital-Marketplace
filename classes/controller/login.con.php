@@ -11,7 +11,7 @@ class Logincontroller extends Login{
 
     public function login(){
         if($this->emptyCheck() == false){
-            header("Location: ../index.php?error=loginfailed");
+            header("Location: ../login.php?error=loginfailed");
             exit();
         }
         $this->getUser($this->username, $this->password);

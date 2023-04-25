@@ -1,16 +1,10 @@
 <?php
-    //making sure that the request is from the form in index page
-    if (!isset($_POST['submit'])) {
-        header("Location: ./index.php?WrongWayToEnter");
-        exit();
-    } else {
         require_once 'classes/dbh.class.php';
         include_once 'classes/models/gallery.mod.php';
     
         //for gallery filter items
         $filter = new Gallery();
         $fdata = $filter->filter();
-    }
 
 ?>
 
@@ -26,6 +20,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="https://kit.fontawesome.com/06b9f7a3c7.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.js" integrity="sha256-DKU1CmJ8kBuEwumaLuh9Tl/6ZB6jzGOBV/5YpNE2BWc=" crossorigin="anonymous"></script>
 </head>
 <body>
     <section class="form">
@@ -34,6 +29,17 @@
             <br>
             <br>
                 <h1>Add new product</h1>
+                 <!-- para mag kwa sang error sa url kag mag display -->
+                <?php 
+                    $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+                    if (strpos($fullUrl, "error=overPrice") == true) {
+                        echo '<p class="text-danger">The product price is too big!</p>';
+                    }else if (strpos($fullUrl, "extensionfailed") == true) {
+                        echo '<p class="text-danger">Please select another image!</p>';
+                    }else if (strpos($fullUrl, "error=imagesize") == true) {
+                        echo '<p class="text-danger">Image size is too large!</p>';
+                    }
+                ?>
                 <form action="includes/add.inc.php" method="post" enctype="multipart/form-data">
                     <label for="select">Select product category name or Create new category name</label>
                     <div class="group-name">

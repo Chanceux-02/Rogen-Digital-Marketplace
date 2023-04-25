@@ -15,5 +15,8 @@ class Deletecontroller extends Delete{
     public function deletenf(){
         $this->deletePost($this->delete, $this->imgName);
     }
+    public function deleteCategory(){
+        $this->deleteCat($this->delete);
+    }
 
 }

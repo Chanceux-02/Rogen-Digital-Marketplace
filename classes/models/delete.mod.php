@@ -17,4 +17,10 @@ class Delete extends Dbh{
 
         unlink("../images/gallery/" . $imgName);
     }
+    public function deleteCat($categoryName){
+        $con = $this->connect();
+        $stmt = "DELETE FROM gallery WHERE groupName = ?;";
+        $stmt2 = $con->prepare($stmt);
+        $stmt2->execute([$categoryName]);
+    }
 }

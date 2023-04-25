@@ -13,7 +13,7 @@ class Login extends Dbh{
         }
         if($stmt2->rowCount() == 0){ // dire gin lantaw kung nag exist or wala 
             $stmt = null;
-            header("location: ../login.php?error=stmtfailed");
+            header("location: ../login.php?error=nouser");
             exit();
         }
             // nag set up sang variables para gamiton karon sa query
@@ -21,7 +21,7 @@ class Login extends Dbh{
             $checkPwd = password_verify($password, $pwdHashed[0]["password"]);
             if($checkPwd == false){
                 $stmt2 = null;
-                header("location: ../login.php?error=stmtFailed");
+                header("location: ../login.php?error=stmtfailed");
                 exit();
             }elseif($checkPwd == true){ // the password is the same
                 

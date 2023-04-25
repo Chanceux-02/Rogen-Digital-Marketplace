@@ -21,6 +21,13 @@
         <a href="index.php" class="btn btn-outline-primary">Back</a>
         <h1>Log in</h1>
         <br>
+        <!-- para mag kwa sang error sa url kag mag display -->
+        <?php 
+            $fullUrl = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            if (strpos($fullUrl, "error=stmtfailed") == true) {
+                echo '<p class="text-danger">Incorrect username or password!</p>';
+            }
+        ?>
         <form action="includes/login.inc.php" method="post">
             <input type="text" name="username" placeholder="Enter your User name" required class="form-control">
             <input type="password" name="pwd" placeholder="Enter your password" required class="form-control">

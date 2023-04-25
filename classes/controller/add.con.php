@@ -36,19 +36,19 @@ class Addcontroller extends Add{
     //function to input data in models
     public function newItem(){
         if ($this->emptyInput() == false) {
-            header("Location: .../index.php?error=emptyinput");
+            header("Location: .../add.php?error=emptyinput");
             exit();
         } else if($this->checkExtension() == false){
-            header("Location: ../index.php?error=extensionfailed");
+            header("Location: ../add.php?error=extensionfailed");
             exit();
         } else if($this->checkError() == false){
-            header("Location: ../index.php?error=extensionfailed");
+            header("Location: ../add.php?error=extensionfailed");
             exit();
         } else if($this->checkSize() == false){
-            header("Location: ../index.php?error=extensionfailed");
+            header("Location: ../add.php?error=imagesize");
             exit();
         } else if ($this->checkPrice() == false) {
-            header("Location: ../index.php?error=overPrice");
+            header("Location: ../add.php?error=overPrice");
             exit();
         }
 

@@ -1,7 +1,7 @@
 <?php
     //amuni ang halin sa recovery questions ma drecho dayun sa resetPwd.php kung sakto kag ma reset sang password
     if (!isset($_POST['submit'])) {
-    header("location: ../index.php?indiKaDirePwedi");
+    header("location: ../notfound.php?pagenotfound");
     }else{
         
         require_once '../classes/dbh.class.php';
